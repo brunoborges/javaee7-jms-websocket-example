@@ -19,7 +19,7 @@ import javax.jms.Queue;
 @Named
 @LocalBean
 @Stateless
-public class MessagenSenderSessionBean {
+public class QueueSenderSessionBean {
 
     @Resource(mappedName = "jms/myQueue")
     private Queue myQueue;

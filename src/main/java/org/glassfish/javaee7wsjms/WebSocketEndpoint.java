@@ -28,13 +28,13 @@ import javax.websocket.server.ServerEndpoint;
  */
 @Named
 @ServerEndpoint("/websocket")
-public class SampleWebSocket implements Serializable {
+public class WebSocketEndpoint implements Serializable {
 
-    private MessagenSenderSessionBean senderBean;
+    private QueueSenderSessionBean senderBean;
     private static final Set<Session> sessions = Collections.synchronizedSet(new HashSet<Session>());
 
     @Inject
-    public SampleWebSocket(MessagenSenderSessionBean sb) {
+    public WebSocketEndpoint(QueueSenderSessionBean sb) {
         this.senderBean = sb;
     }
 
@@ -44,7 +44,7 @@ public class SampleWebSocket implements Serializable {
             session.getBasicRemote().sendText("session opened");
             sessions.add(session);
         } catch (Exception ex) {
-            Logger.getLogger(SampleWebSocket.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(WebSocketEndpoint.class.getName()).log(Level.SEVERE, null, ex);
             ex.printStackTrace();
         }
     }
@@ -54,14 +54,14 @@ public class SampleWebSocket implements Serializable {
         try {
             client.getBasicRemote().sendText("sending message to SessionBean...");
         } catch (IOException ex) {
-            Logger.getLogger(SampleWebSocket.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(WebSocketEndpoint.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         if (senderBean != null) {
-            Logger.getLogger(SampleWebSocket.class.getName()).log(Level.INFO, "senderBean is not null");
+            Logger.getLogger(WebSocketEndpoint.class.getName()).log(Level.INFO, "senderBean is not null");
             senderBean.sendMessage(message);
         } else {
-            Logger.getLogger(SampleWebSocket.class.getName()).log(Level.INFO, "senderBean is null");
+            Logger.getLogger(WebSocketEndpoint.class.getName()).log(Level.INFO, "senderBean is null");
         }
 
     }
@@ -72,18 +72,18 @@ public class SampleWebSocket implements Serializable {
             session.getBasicRemote().sendText("WebSocket Session closed");
             sessions.remove(session);
         } catch (Exception ex) {
-            Logger.getLogger(SampleWebSocket.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(WebSocketEndpoint.class.getName()).log(Level.SEVERE, null, ex);
             ex.printStackTrace();
         }
     }
 
-    public void onJMSMessage(@Observes @WebSocketJMSMessage Message msg) {
-        Logger.getLogger(SampleWebSocket.class.getName()).log(Level.INFO, "Got JMS Message at WebSocket!");
+    public void onJMSMessage(@Observes @WSJMSMessage Message msg) {
+        Logger.getLogger(WebSocketEndpoint.class.getName()).log(Level.INFO, "Got JMS Message at WebSocket!");
         for (Session s : sessions) {
             try {
                 s.getBasicRemote().sendText("message from JMS: " + msg.getBody(String.class));
             } catch (IOException | JMSException ex) {
-                Logger.getLogger(SampleWebSocket.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(WebSocketEndpoint.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }

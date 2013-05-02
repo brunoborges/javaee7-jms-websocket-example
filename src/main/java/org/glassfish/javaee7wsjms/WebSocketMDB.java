@@ -20,19 +20,19 @@ import javax.jms.JMSException;
  */
 @Named
 @MessageDriven(mappedName = "jms/myQueue")
-public class SampleMessageListener implements MessageListener {
+public class WebSocketMDB implements MessageListener {
 
     @Inject
-    @WebSocketJMSMessage
+    @WSJMSMessage
     Event<Message> jmsEvent;
 
     @Override
     public void onMessage(Message msg) {
         try {
-            Logger.getLogger(SampleMessageListener.class.getName()).log(Level.INFO, "Message received [id={0}] [payload={1}]", new Object[]{msg.getJMSMessageID(), msg.getBody(String.class)});
+            Logger.getLogger(WebSocketMDB.class.getName()).log(Level.INFO, "Message received [id={0}] [payload={1}]", new Object[]{msg.getJMSMessageID(), msg.getBody(String.class)});
             jmsEvent.fire(msg);
         } catch (JMSException ex) {
-            Logger.getLogger(SampleMessageListener.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(WebSocketMDB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }
