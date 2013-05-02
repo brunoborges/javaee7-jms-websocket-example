@@ -1,7 +1,7 @@
 /**
  * Copyright © 2013, 2013, Oracle and/or its affiliates. All rights reserved.
  */
-package org.glassfish.javaee7wsjms;
+package org.glassfish.samples.javaee7.websocketjms;
 
 import java.util.logging.Level;
 import javax.ejb.MessageDriven;

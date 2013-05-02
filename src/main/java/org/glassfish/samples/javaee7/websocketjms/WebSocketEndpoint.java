@@ -1,7 +1,7 @@
 /**
  * Copyright © 2013, 2013, Oracle and/or its affiliates. All rights reserved.
  */
-package org.glassfish.javaee7wsjms;
+package org.glassfish.samples.javaee7.websocketjms;
 
 import java.io.IOException;
 import java.io.Serializable;

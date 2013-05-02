@@ -1,7 +1,7 @@
 /**
  * Copyright © 2013, 2013, Oracle and/or its affiliates. All rights reserved. 
  */
-package org.glassfish.javaee7wsjms;
+package org.glassfish.samples.javaee7.websocketjms;
 
 import javax.annotation.Resource;
 import javax.ejb.LocalBean;
