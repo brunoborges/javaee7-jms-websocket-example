@@ -1,6 +1,5 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Copyright © 2013, 2013, Oracle and/or its affiliates. All rights reserved. 
  */
 package org.glassfish.javaee7wsjms;
 
@@ -13,8 +12,10 @@ import javax.jms.JMSContext;
 import javax.jms.Queue;
 
 /**
- *
- * @author bruno
+ * This is the SessionBean used by the WebSocket server endpoint to dispatch 
+ * incoming messages to the JMS Queue
+ * 
+ * @author Bruno Borges <bruno.borges at oracle.com>
  */
 @Named
 @LocalBean

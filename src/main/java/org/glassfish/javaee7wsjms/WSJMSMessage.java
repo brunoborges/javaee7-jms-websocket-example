@@ -1,6 +1,5 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Copyright © 2013, 2013, Oracle and/or its affiliates. All rights reserved. 
  */
 package org.glassfish.javaee7wsjms;
 
@@ -11,8 +10,9 @@ import java.lang.annotation.Target;
 import javax.inject.Qualifier;
 
 /**
- *
- * @author bruno
+ * This is the CDI event classifier
+ * 
+ * @author Bruno Borges <bruno.borges at oracle.com>
  */
 @Qualifier
 @Retention(RetentionPolicy.RUNTIME)

@@ -1,6 +1,5 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Copyright © 2013, 2013, Oracle and/or its affiliates. All rights reserved.
  */
 package org.glassfish.javaee7wsjms;
 
@@ -23,8 +22,11 @@ import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
 /**
- *
- * @author bruno
+ * This is the WebSocket server endpoint. It listens to CDI events classified
+ * with
+ * <code>@WSJMSMessage</code> at <code>onJMSMessage</code> and sends the payload
+ * to all client Sessions
+ * @author Bruno Borges <bruno.borges at oracle.com>
  */
 @Named
 @ServerEndpoint("/websocket")
@@ -43,9 +45,12 @@ public class WebSocketEndpoint implements Serializable {
         try {
             session.getBasicRemote().sendText("session opened");
             sessions.add(session);
+
+            if (senderBean == null) {
+                Logger.getLogger(WebSocketEndpoint.class.getName()).log(Level.INFO, "senderBean is null");
+            }
         } catch (Exception ex) {
             Logger.getLogger(WebSocketEndpoint.class.getName()).log(Level.SEVERE, null, ex);
-            ex.printStackTrace();
         }
     }
 
@@ -58,12 +63,8 @@ public class WebSocketEndpoint implements Serializable {
         }
 
         if (senderBean != null) {
-            Logger.getLogger(WebSocketEndpoint.class.getName()).log(Level.INFO, "senderBean is not null");
             senderBean.sendMessage(message);
-        } else {
-            Logger.getLogger(WebSocketEndpoint.class.getName()).log(Level.INFO, "senderBean is null");
         }
-
     }
 
     @OnClose
@@ -73,19 +74,17 @@ public class WebSocketEndpoint implements Serializable {
             sessions.remove(session);
         } catch (Exception ex) {
             Logger.getLogger(WebSocketEndpoint.class.getName()).log(Level.SEVERE, null, ex);
-            ex.printStackTrace();
         }
     }
 
     public void onJMSMessage(@Observes @WSJMSMessage Message msg) {
         Logger.getLogger(WebSocketEndpoint.class.getName()).log(Level.INFO, "Got JMS Message at WebSocket!");
-        for (Session s : sessions) {
-            try {
+        try {
+            for (Session s : sessions) {
                 s.getBasicRemote().sendText("message from JMS: " + msg.getBody(String.class));
-            } catch (IOException | JMSException ex) {
-                Logger.getLogger(WebSocketEndpoint.class.getName()).log(Level.SEVERE, null, ex);
             }
+        } catch (IOException | JMSException ex) {
+            Logger.getLogger(WebSocketEndpoint.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
 }

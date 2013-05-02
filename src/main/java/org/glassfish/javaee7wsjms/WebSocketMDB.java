@@ -1,6 +1,5 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Copyright © 2013, 2013, Oracle and/or its affiliates. All rights reserved.
  */
 package org.glassfish.javaee7wsjms;
 
@@ -15,8 +14,11 @@ import javax.inject.Inject;
 import javax.jms.JMSException;
 
 /**
+ * This MDB will fire CDI events with the JMS payload, classified as
  *
- * @author bruno
+ * @WSJMSMessage
+ *
+ * @author Bruno Borges <bruno.borges at oracle.com>
  */
 @Named
 @MessageDriven(mappedName = "jms/myQueue")
