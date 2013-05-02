@@ -41,11 +41,6 @@ public class WebSocketMDB implements MessageListener {
 
     @Override
     public void onMessage(Message msg) {
-        try {
-            Logger.getLogger(WebSocketMDB.class.getName()).log(Level.INFO, "Message received [id={0}] [payload={1}]", new Object[]{msg.getJMSMessageID(), msg.getBody(String.class)});
-            jmsEvent.fire(msg);
-        } catch (JMSException ex) {
-            Logger.getLogger(WebSocketMDB.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        jmsEvent.fire(msg);
     }
 }
