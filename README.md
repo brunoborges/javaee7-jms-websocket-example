@@ -1,4 +1,4 @@
-javaee7-jms-websocket-example
-=============================
+javaee7-jms-websocket-bug
+=========================
 
-Example of a Java EE 7 application that integrates JMS 2.0, WebSockets 1.0, CDI events, and EJB 3
+Bug when connecting a WebSocket with JMS. See GLASSFISH-20371
