@@ -1,4 +1,5 @@
-javaee7-jms-websocket-bug
+Java EE 7 Example for JMS and WebSockets integration
 =========================
 
-Bug when connecting a WebSocket with JMS. See GLASSFISH-20371
+This application demonstrates the type of integration that can be done between JMS and WebSockets, using CDI events and EJB3
+
