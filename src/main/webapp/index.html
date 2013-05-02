@@ -13,13 +13,15 @@
 
             function open() {
                 if (!websocketSession) {
-                    websocketSession = new WebSocket('ws://' + document.location.host + '/javaee7-jms-websocket-bug/websocket');
+                    websocketSession = new WebSocket('ws://' + document.location.host + '/javaee7-jms-websocket-example/websocket');
                     websocketSession.onmessage = f_onmessage;
                 }
             }
 
             function close() {
-                websocketSession.close();
+                if (websocketSession) {
+                    websocketSession.close();
+                }
             }
 
             function sendMessage(msg) {
@@ -29,6 +31,11 @@
     </head>
     <body>
         <h1>WebSockets and JMS</h1>
+        <ul>
+            <li>First open a session</li>
+            <li>Send messages and wait for replies</li>
+            <li>Check server's log</li>
+        </ul>
         <a href="javascript:open();">Open Session</a>
         <br/>
         <input id="message" type="text" name="message" placeholder="Message" />
