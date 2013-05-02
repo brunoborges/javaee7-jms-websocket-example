@@ -16,7 +16,7 @@
     
     <!--  
          Just temporary - should be removed once the javaee7-api
-         will be released to the maven central repository
+         is released to the maven central repository
     -->    
     <repositories>
         <repository>
@@ -42,48 +42,12 @@
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
-            <version>7.0-b83</version>
+            <version>7.0-b86</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
 
-    <profiles>
-        <profile>
-            <id>dev</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <properties>
-                <glassfish-home>/home/bruno/Work/tools/glassfish4</glassfish-home>
-                <glassfish-host>localhost</glassfish-host>
-                <password-file>~/.asadmintruststore</password-file>
-            </properties>
-        </profile>
-        <profile>
-            <id>prod</id>
-            <properties>
-                <glassfish-home>/opt/glassfish4</glassfish-home>
-                <glassfish-host>glassfish4.toolscloud.org</glassfish-host>
-                <password-file>~/.asadmintruststore</password-file>
-            </properties>
-        </profile>        
-        <profile>
-            <id>localprod</id>
-            <properties>
-                <glassfish-home>/home/bruno/Work/tools/glassfish4</glassfish-home>
-                <glassfish-host>glassfish4.toolscloud.org</glassfish-host>
-                <password-file>/home/bruno/.asadmin-glassfish4-toolscloud</password-file>
-            </properties>
-        </profile>        
-    </profiles>
-
     <build>
-        <resources>
-            <resource>
-                <directory>src/main/webapp</directory>
-                <filtering>true</filtering>
-            </resource>
-        </resources>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -122,50 +86,13 @@
                                 <artifactItem>
                                     <groupId>javax</groupId>
                                     <artifactId>javaee-endorsed-api</artifactId>
-                                    <version>7.0-b83</version>
+                                    <version>7.0-b86</version>
                                     <type>jar</type>
                                 </artifactItem>
                             </artifactItems>
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.glassfish.embedded</groupId>
-                <artifactId>maven-embedded-glassfish-plugin</artifactId>
-                <version>3.1.2.2</version>
-                <configuration>
-                    <app>target/${project.artifactId}-${project.version}</app>
-                    <port>8282</port>
-                    <contextRoot>${project.artifactId}</contextRoot>
-                </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.glassfish.main</groupId>
-                        <artifactId>simple-glassfish-api</artifactId>
-                        <version>4.0-b79</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.glassfish.main.extras</groupId>
-                        <artifactId>glassfish-embedded-all</artifactId>
-                        <version>4.0-b83</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
-            <plugin> 
-               <groupId>org.codeartisans.asadmin</groupId>
-                <artifactId>asadmin-maven-plugin</artifactId>
-                <version>0.12</version>
-                <configuration>
-                    <glassfishHome>${glassfish-home}</glassfishHome>
-                    <domain>domain1</domain>
-                    <host>${glassfish-host}</host>
-                    <port>4848</port>
-                    <user>admin</user>
-                    <passwordfile>${password-file}</passwordfile>
-                    <appArchive>${project.build.directory}/${project.build.finalName}.${project.artifact.artifactHandler.extension}</appArchive>
-                    <contextRoot>${project.artifactId}</contextRoot>
-                </configuration>
             </plugin>
         </plugins>
     </build>
