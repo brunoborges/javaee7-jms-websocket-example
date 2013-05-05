@@ -22,7 +22,7 @@ function f_onmessage(evt) {
 
 function open() {
     if (!websocketSession) {
-        websocketSession = new WebSocket('ws://' + document.location.host + '/javaee7-jms-websocket-example/websocket');
+        websocketSession = new WebSocket('ws://' + document.location.host + document.location.pathname +'websocket');
         websocketSession.onmessage = f_onmessage;
     }
 }
