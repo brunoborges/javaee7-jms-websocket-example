@@ -24,7 +24,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
-import javax.inject.Named;
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.websocket.OnClose;
@@ -40,17 +39,12 @@ import javax.websocket.server.ServerEndpoint;
  * to all client Sessions
  * @author Bruno Borges <bruno.borges at oracle.com>
  */
-@Named
 @ServerEndpoint("/websocket")
 public class WebSocketEndpoint implements Serializable {
 
+    @Inject
     private QueueSenderSessionBean senderBean;
     private static final Set<Session> sessions = Collections.synchronizedSet(new HashSet<Session>());
-
-    @Inject
-    public WebSocketEndpoint(QueueSenderSessionBean sb) {
-        this.senderBean = sb;
-    }
 
     @OnOpen
     public void onOpen(final Session session) {

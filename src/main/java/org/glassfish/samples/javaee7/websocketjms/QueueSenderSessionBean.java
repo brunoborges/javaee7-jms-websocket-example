@@ -16,10 +16,8 @@
 package org.glassfish.samples.javaee7.websocketjms;
 
 import javax.annotation.Resource;
-import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.inject.Named;
 import javax.jms.JMSContext;
 import javax.jms.Queue;
 
@@ -29,8 +27,6 @@ import javax.jms.Queue;
  * 
  * @author Bruno Borges <bruno.borges at oracle.com>
  */
-@Named
-@LocalBean
 @Stateless
 public class QueueSenderSessionBean {
 

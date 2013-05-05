@@ -15,15 +15,11 @@
  */
 package org.glassfish.samples.javaee7.websocketjms;
 
-import java.util.logging.Level;
 import javax.ejb.MessageDriven;
-import javax.inject.Named;
 import javax.jms.Message;
 import javax.jms.MessageListener;
-import java.util.logging.Logger;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
-import javax.jms.JMSException;
 
 /**
  * This MDB will fire CDI events with the JMS payload, classified as
@@ -31,7 +27,6 @@ import javax.jms.JMSException;
  *
  * @author Bruno Borges <bruno.borges at oracle.com>
  */
-@Named
 @MessageDriven(mappedName = "jms/myQueue")
 public class WebSocketMDB implements MessageListener {
 
