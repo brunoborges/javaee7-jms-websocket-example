@@ -20,6 +20,7 @@ import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
+import javax.jms.JMSDestinationDefinition;
 
 /**
  * This MDB will fire CDI events with the JMS payload, classified as
@@ -27,7 +28,12 @@ import javax.inject.Inject;
  *
  * @author Bruno Borges <bruno.borges at oracle.com>
  */
-@MessageDriven(mappedName = "jms/myQueue")
+@JMSDestinationDefinition(
+        name = "java:app/jms/myQueue",
+        interfaceName = "javax.jms.Queue",
+        destinationName = "myQueue"
+)
+@MessageDriven(mappedName = "java:app/jms/myQueue")
 public class WebSocketMDB implements MessageListener {
 
     @Inject
@@ -38,4 +44,5 @@ public class WebSocketMDB implements MessageListener {
     public void onMessage(Message msg) {
         jmsEvent.fire(msg);
     }
+
 }
